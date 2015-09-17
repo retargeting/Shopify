@@ -1,0 +1,6 @@
+(function(){
+alert(123);
+var ra = document.createElement("script"); ra.type ="text/javascript"; ra.async = true; ra.src = ("https:" ==
+document.location.protocol ? "https://" : "http://") + "retargeting-data.eu/" +
+document.location.hostname.replace("www.","") + "/ra.js"; var s =
+document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ra,s);})();
