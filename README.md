@@ -22,7 +22,7 @@ The app’s settings are available via Apps - Installed Apps - Retargeting.biz.
  * Go to your [Retargeting Account](https://retargeting.biz/admin)
  * Get the Domain API Key from Settings Page
  * Select & copy Discounts API Key
- * Go to your Shopify Store Admin Panel - Apps -Installed Apps - Retargeting.biz
+ * Go to your Shopify Store Admin Panel - Apps - Installed Apps - Retargeting.biz
  * Paste Domain API Key in the coresponding field
  * Click Save
 
@@ -30,11 +30,11 @@ The app’s settings are available via Apps - Installed Apps - Retargeting.biz.
  * Go to your [Retargeting Account](https://retargeting.biz/admin)
  * Get the Discount API Key from Settings Page
  * Select & copy Discounts API Key
- * Go to your Shopify Store Admin Panel - Apps -Installed Apps - Retargeting.biz
+ * Go to your Shopify Store Admin Panel - Apps - Installed Apps - Retargeting.biz
  * Paste Discounts API Key in the coresponding field
  * Click Save
 
-* To enable the Retargeting Application just press Enable from the top right corner. After that the App Status should be now set to Running
+* To enable the Retargeting Application just press *Enable* from the top right corner. After that the App Status should be now set to Running
 
 * Setup Help Pages
  * Go to your Shopify Store Admin Panel - Apps -Installed Apps - Retargeting.biz
