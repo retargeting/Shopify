@@ -2,7 +2,7 @@
 
 ### Contents
 * Requirements & Compatibility.
-* Installing Retargeting Extension.
+* Installing the Retargeting App.
 * Configuration.
 * Troubleshooting & Support.
 
@@ -10,11 +10,14 @@
 * A Retargeting account
 * A Shopify store
 
-### Installing Retargeting Application
-to be added..
+### Installing the Retargeting App
+To install Retargeting's App on your Shopify store go to https://apps.shopify.com/retargeting-tracker.
+After that, just press GET and you will be asked for permission.
+Press Install and you're up and running.
+All that's left to do is to make sure you Enable the App by going to it's settings, which are available via Apps - Installed Apps - Retargeting.biz.
 
 ### Configuration
-The extension’s settings are available via Apps - Installed Apps - Retargeting.biz.
+The app’s settings are available via Apps - Installed Apps - Retargeting.biz.
 * Setup Domain API Key
  * Go to your [Retargeting Account](https://retargeting.biz/admin)
  * Get the Domain API Key from Settings Page
