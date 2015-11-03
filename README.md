@@ -14,7 +14,7 @@
 To install Retargeting's App on your Shopify store go to https://apps.shopify.com/retargeting-tracker.
 After that, just press GET and you will be asked for permission.
 Press Install and you're up and running.
-All that's left to do is to make sure you Enable the App by going to it's settings, which are available via Apps - Installed Apps - Retargeting.biz.
+All that's left to do is to make sure you Enable the App by going to its settings, which are available via Apps - Installed Apps - Retargeting.biz.
 
 ### Configuration
 The app’s settings are available via Apps - Installed Apps - Retargeting.biz.
