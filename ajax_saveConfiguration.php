@@ -57,6 +57,9 @@
 
 				$res[] = $shopify('POST /admin/script_tags.json', $scriptTag);
 
+				// add Order Placed Webhook
+				// ...
+
 			} else {
 				// disable Retargeting App
 
@@ -79,6 +82,9 @@
 						$res[] = $shopify('DELETE /admin/script_tags/'.$st['id'].'.json');
 					}
 				}
+
+				// remove Order Placed Webhook
+				// ...
 			}
 
 		}
