@@ -8,8 +8,34 @@
 
 	require __DIR__.'/conf.php';
 
-	//if (!isset($_SESSION['oauth_token']) && !isset($_SESSION['shop'])) {
-	if (!verifyShopStatus($conn, $_GET['shop'])) {
+	// $counter = true -> valid token already exists
+	// $counter = false -> no valid token found, installation required
+	$counter = false;
+
+	if (verifyShopStatus($conn, $_GET['shop'])) {
+
+		shopify\is_valid_request($_GET, SHOPIFY_APP_SHARED_SECRET) or die('Invalid Request! Request or redirect did not come from Shopify');
+
+		$shop = getShopDetails($conn, $_GET['shop']);
+
+		try {
+
+			$shopify = shopify\client($shop['shop'], SHOPIFY_APP_API_KEY, $shop['token']);
+			$shopShopifyDetails = $shopify('GET /admin/shop.json');
+			
+			if ($shopShopifyDetails) 
+				$counter = true;
+
+		} catch (Exception $e) {
+
+			// there was a problem with the current token
+
+			uninstallShop($conn, $_GET['shop']);
+
+			$counter = false;
+		}
+	}
+	if (!$counter) {
 
 		// [begin]OAUTH
 
@@ -64,6 +90,10 @@
 
 		$shop = getShopDetails($conn, $_GET['shop']);
 
+		$shopify = shopify\client($shop['shop'], SHOPIFY_APP_API_KEY, $shop['token']);
+		
+		$shopShopifyDetails = $shopify('GET /admin/shop.json');
+
 		$_SESSION['oauth_token'] = $shop['token'];
 		$_SESSION['shop'] = $shop['shop'];
 
@@ -84,6 +114,8 @@
 		$view['qs_image'] = $shop['qs_image'];
 		$view['qs_review'] = $shop['qs_review'];
 		$view['qs_price'] = $shop['qs_price'];
+
+		$view['shopify_email'] = $shopShopifyDetails['email'];
 
 ?>
 <!DOCTYPE HTML>
@@ -219,7 +251,7 @@
 				<h2>To have access to our awesome features you need a <a href="https://retargeting.biz" target="_blank">Retargeting account</a>.</h2>
 				<div class="row">
 					<div class="btn-init btn-disableInit">I already have an account</div>
-					<a href="https://retargeting.biz/signup"><div class="btn-init btn-cta">Start your 14-day Free Trial</div></a>
+					<a href="https://retargeting.biz/signup?email=<?php echo $view['shopify_email']; ?>"><div class="btn-init btn-cta">Start your 14-day Free Trial</div></a>
 				</div>
 			</article>
 		
