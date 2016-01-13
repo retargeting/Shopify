@@ -105,7 +105,7 @@
 		$view['init'] = $shop['init'];
 		$view['domain'] = ($shop['domain'] != '' ? $shop['domain'] : $shop['shop']);
 		$view['domain_api_key'] = $shop['domain_api_key'];
-		$view['discounts_api_key'] = $shop['discounts_api_key'];
+		$view['api_token'] = $shop['api_token'];
 
 		$view['help_pages'] = $shop['help_pages'];
 		$view['qs_add_to_cart'] = $shop['qs_add_to_cart'];
@@ -178,9 +178,9 @@
 				</div>
 
 				<div class="input">
-					<label for="ra_discounts_api_key">Discounts API Key</label>
-					<input type="text" name="ra_discounts_api_key" id="ra_discounts_api_key" placeholder="ex: 1238BFDOS0SFODBSFKJSDFU2U32" value="<?php echo $view['discounts_api_key']; ?>">
-					<p class="description">You can find your Secure Discounts API Key in your <a href="http://retargeting.biz">Retargeting</a> account.</p>
+					<label for="ra_api_token">Token</label>
+					<input type="text" name="ra_api_token" id="ra_api_token" placeholder="ex: 1238BFDOS0SFODBSFKJSDFU2U32" value="<?php echo $view['api_token']; ?>">
+					<p class="description">You can find your Secure Token in your <a href="http://retargeting.biz">Retargeting</a> account.</p>
 				</div>
 
 			</div>

@@ -57,7 +57,7 @@ ShopifyApp.ready(function(){
 		$.post( "ajax_saveConfiguration.php", { 
 				domain: $('input[name="ra_domain"]').val(), 
 				domain_api_key: $('input[name="ra_domain_api_key"]').val(), 
-				discounts_api_key: $('input[name="ra_discounts_api_key"]').val(), 
+				api_token: $('input[name="ra_api_token"]').val(), 
 				help_pages: $('input[name="ra_help_pages"]').val(), 
 				qs_add_to_cart: $('input[name="ra_add_to_cart"]').val(), 
 				qs_variation: $('input[name="ra_variation"]').val(), 
@@ -94,7 +94,7 @@ ShopifyApp.ready(function(){
 				changeStatus: true,
 				domain: $('input[name="ra_domain"]').val(), 
 				domain_api_key: $('input[name="ra_domain_api_key"]').val(), 
-				discounts_api_key: $('input[name="ra_discounts_api_key"]').val(), 
+				api_token: $('input[name="ra_api_token"]').val(), 
 				help_pages: $('input[name="ra_help_pages"]').val(), 
 				qs_add_to_cart: $('input[name="ra_add_to_cart"]').val(), 
 				qs_variation: $('input[name="ra_variation"]').val(), 

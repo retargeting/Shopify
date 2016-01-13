@@ -8,14 +8,14 @@
 
 	require __DIR__.'/conf.php';
 
-	if (isset($_POST['domain_api_key']) && isset($_POST['discounts_api_key']) && isset($_SESSION['oauth_token'])) {
+	if (isset($_POST['domain_api_key']) && isset($_POST['api_token']) && isset($_SESSION['oauth_token'])) {
 		
 		$shopify = shopify\client($_SESSION['shop'], SHOPIFY_APP_API_KEY, $_SESSION['oauth_token']);
 
 		$newDomain = $_POST['domain'];
 
 		$newDomainApiKey = $_POST['domain_api_key'];
-		$newDiscountsApiKey = $_POST['discounts_api_key'];
+		$newApiToken = $_POST['api_token'];
 		$changeStatus = (isset($_POST['changeStatus']) ? true : false);
 
 		$newHelpPages = $_POST['help_pages'];
@@ -26,7 +26,7 @@
 		$newReview = $_POST['qs_review'];
 		$newPrice = $_POST['qs_price'];
 
-		$response = updateShopDetails($conn, $_SESSION['shop'], $_SESSION['oauth_token'], $newDomain, $newDomainApiKey, $newDiscountsApiKey, $changeStatus, $newHelpPages, $newAddToCart, $newVariation, $newAddToWishlist, $newImage, $newReview, $newPrice);
+		$response = updateShopDetails($conn, $_SESSION['shop'], $_SESSION['oauth_token'], $newDomain, $newDomainApiKey, $newApiToken, $changeStatus, $newHelpPages, $newAddToCart, $newVariation, $newAddToWishlist, $newImage, $newReview, $newPrice);
 
 		try
 		{
@@ -57,8 +57,16 @@
 
 				$res[] = $shopify('POST /admin/script_tags.json', $scriptTag);
 
-				// add Order Placed Webhook
-				// ...
+				// add Order/Create Webhook
+				$webhook = array(
+					'webhook' => array(
+						'topic' => 'orders/create',
+						'address' => 'https://retargeting.biz/shopify/webhooks/orders/create.php',
+						'format' => 'json'
+					)
+				);
+
+				$res[] = $shopify('POST /admin/webhooks.json', $webhook);
 
 			} else {
 				// disable Retargeting App
@@ -66,6 +74,7 @@
 				$stBase = null;
 				$stTriggers = null;
 
+				// remove ScriptTags
 				$scriptTags = $shopify('GET /admin/script_tags.json');
 				$res[] = $scriptTags;
 				foreach ($scriptTags as $st) {
@@ -83,8 +92,14 @@
 					}
 				}
 
-				// remove Order Placed Webhook
-				// ...
+				// remove Order/Create Webhook
+				$webhooks = $shopify('GET /admin/webhooks.json');
+				$res[] = $webhooks;
+				foreach ($webhooks as $wh) {
+					if ($wh['address'] == 'https://retargeting.biz/shopify/webhooks/orders/create.php') {
+						$res[] = $shopify('DELETE /admin/webhooks/'.$wh['id'].'.json');
+					}
+				}
 			}
 
 		}
