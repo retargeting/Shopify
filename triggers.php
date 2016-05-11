@@ -46,9 +46,22 @@
 								$category = '{
 									"id": '.$category['id'].',
 									"name": "'.$category['title'].'",
-									"parent": false
+									"parent": false,
+									"breadcrumb": []
 								}';
 							}
+						}
+						
+						$productInventoryVariations = 'false';
+						if (count($product['variants'])) {
+							$productInventoryStock = array();
+							foreach ($product['variants'] as $variant) {
+								$entry = implode('-', explode(' / ', $variant['title']));
+								$productInventoryStock[] = $entry.': '.($variant['inventory_quantity'] > 0 ? 'true' : 'false');
+							}
+							$productInventoryStock = '{'.implode(', ', $productInventoryStock).'}';
+						} else {
+							$productInventoryStock = 'true';
 						}
 ?>
 
@@ -64,8 +77,11 @@ _ra.sendProductInfo = {
 	"promo": "<?php echo ($product['variants'][0]['compare_at_price'] == '' ? 0 : $product['variants'][0]['price']); ?>",
 	"stock": <?php echo ($product['variants'][0]['inventory_quantity'] <= 0 ? 0 : 1); ?>,
 	"brand": false,
-	"category": <?php echo $category; ?>,
-	"category_breadcrumb": []
+	"category": [<?php echo $category; ?>],
+	"inventory": {
+		"variations": <?php echo $productInventoryVariations; ?>,
+		"stock": <?php echo $productInventoryStock; ?>
+	}
 }
 
 if (_ra.ready !== undefined) {
@@ -117,7 +133,7 @@ _ra.sendCategoryInfo = {
 	"id": <?php echo $category['id']; ?>,
 	"name": "<?php echo $category['title']; ?>",
 	"parent": false,
-	"category_breadcrumb": [] 
+	"breadcrumb": [] 
 };
 
 if (_ra.ready !== undefined) {
@@ -161,21 +177,7 @@ if (_ra.ready !== undefined) {
 ?>
 
 // addToCart
-_ra.addToCart(<?php echo $product['id']; ?>, {
-	"code": "Y-32",
-	"details": {
-		"Y": {
-			"category_name": "Color",
-			"category": "color",
-			"value": "Yellow"
-		},
-		"32": {
-			"category_name": "Size",
-			"category": "size",
-			"value": "32"
-		}
-	}
-});
+_ra.addToCart(<?php echo $product['id']; ?>, 1, false);
 
 <?php
 					}

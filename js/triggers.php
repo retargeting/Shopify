@@ -85,12 +85,12 @@ if (window.location.pathname.indexOf('/products/') !== -1) {
 						_ra_vdetails[_ra_value] = {
 							"category_name": _ra_label,					
 							"category": _ra_label,
-							"value": _ra_value,
-							"stock": 1
+							"value": _ra_value
 						};
 					}
-					_ra.addToCart(_ra_globals_productId, {
+					_ra.addToCart(_ra_globals_productId, 1, {
 						"code": _ra_vcode.join('-'),
+						"stock": true,
 						"details": _ra_vdetails
 					});
 				});
@@ -103,11 +103,12 @@ if (window.location.pathname.indexOf('/products/') !== -1) {
 			for(var i = 0; i < _ra_sv.length; i ++) {
 				_ra_sv[i].addEventListener("change", function() {
 					if (typeof _ra_globals_productId === 'undefined') return;
-					var _ra_vcode = [], _ra_vdetails = {};
+					var _ra_vcode = [], _ra_vdetails = {}, _ra_vstock = true;
 					var _ra_v = document.querySelectorAll('<?php echo $qs['variation']; ?>');
 					for(var i = 0; i < _ra_v.length; i ++) {
 						var _ra_atc = document.querySelector('<?php echo $qs['add_to_cart']; ?>');
 						var _ra_stock = (_ra_atc.getAttribute('disabled') === 'disabled' ? 0 : 1);
+						if (_ra_stock === 0) _ra_vstrock = false;
 						var _ra_label = document.querySelector('[for="' + _ra_v[i].getAttribute('id') + '"');
 						_ra_label = (_ra_label !== null ? _ra_label = document.querySelector('[for="' + _ra_v[i].getAttribute('id') + '"').textContent : _ra_v[i].getAttribute('data-option') );
 						var _ra_value = (typeof _ra_v[i].value !== 'undefined' ? _ra_v[i].value : _ra_v[i].textContent);
@@ -115,12 +116,12 @@ if (window.location.pathname.indexOf('/products/') !== -1) {
 						_ra_vdetails[_ra_value] = {
 							"category_name": _ra_label,					
 							"category": _ra_label,
-							"value": _ra_value,
-							"stock": _ra_stock
+							"value": _ra_value
 						};
 					}
 					_ra.setVariation(_ra_globals_productId, {
 						"code": _ra_vcode.join('-'),
+						"stock": _ra_vstock,
 						"details": _ra_vdetails
 					});
 				});
@@ -205,6 +206,8 @@ if (window.location.pathname.indexOf('/thank_you') !== -1) {
 		"discount": (Shopify.checkout.discount === null ? 0 : Shopify.checkout.discount.amount),
 		"discount_code": (Shopify.checkout.discount === null ? "" : Shopify.checkout.discount.code),
 		"shipping": Shopify.checkout.shipping_rate.price,
+		"rebates": 0,
+		"fees": 0,
 		"total": Shopify.checkout.total_price
 	};
 	_ra.saveOrderProducts = [];

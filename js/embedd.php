@@ -8,20 +8,14 @@
 		if ($shop['domain_api_key'] != '') {
 ?>
 (function(){
-var ra_key = "<?php echo $shop['domain_api_key']; ?>";
+ra_key = "<?php echo $shop['domain_api_key']; ?>";
+ra_params = {
+	add_to_cart_button_id: '<?php echo ($shop['qs_add_to_cart'] != '' ? $shop['qs_add_to_cart'] : 'form[action="/cart/add"] [type="submit"]'); ?>',
+	price_label_id: '<?php echo ($shop['qs_price'] != '' ? $shop['qs_price'] : '#price-preview'); ?>',
+};
 var ra = document.createElement("script"); ra.type ="text/javascript"; ra.async = true; ra.src = ("https:" ==
-document.location.protocol ? "https://" : "http://") + "retargeting-data.eu/rajs/" + ra_key + ".js";
+document.location.protocol ? "https://" : "http://") + "tracking.retargeting.biz/v3/rajs/" + ra_key + ".js";
 var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ra,s);})();
-<?php
-		} else {
-?>
-(function(){
-	var _ra_hostname = (document.location.hostname.replace("www.","") === "checkout.shopify.com" ? Shopify.shop : document.location.hostname.replace("www.",""));
-	var ra = document.createElement("script"); ra.type ="text/javascript"; ra.async = true; ra.src = ("https:" ==
-	document.location.protocol ? "https://" : "http://") + "retargeting-data.eu/" +
-	_ra_hostname + "/ra.js"; var s =
-	document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ra,s);})();
-
 <?php
 		}
 	}
