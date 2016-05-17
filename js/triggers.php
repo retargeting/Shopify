@@ -150,36 +150,6 @@ if (window.location.pathname.indexOf('/products/') !== -1) {
 			}
 		}
 
-		// RA::mouseOverPrice
-		var _ra_sv = document.querySelectorAll('<?php echo $qs['price']; ?>');
-		if (_ra_sv.length > 0) {
-			for(var i = 0; i < _ra_sv.length; i ++) {
-				_ra_sv[i].addEventListener("mouseover", function() {
-					var _ra_handleP = window.location.pathname.match(/\/products\/([a-z0-9\-]+)/) !== null ? window.location.pathname.match(/\/products\/([a-z0-9\-]+)/)[1] : '';
-
-					var _ra_vcode = {};
-					var _ra_v = document.querySelectorAll('<?php echo $qs['variation']; ?>');
-					for(var i = 0; i < _ra_v.length; i ++) {
-						var _ra_value = (typeof _ra_v[i].value !== 'undefined' ? _ra_v[i].value : _ra_v[i].textContent);
-						_ra_vcode[_ra_v[i].getAttribute('data-option')] = _ra_value;
-					}
-
-					_ra_getTriggers('mouseOverPrice', _ra_handleP, '', _ra_vcode);
-				});
-			}
-		}
-
-		// RA::mouseOverAddToCart
-		var _ra_atc = document.querySelectorAll('<?php echo $qs['add_to_cart']; ?>');
-		if (_ra_atc.length > 0) {
-			for(var i = 0; i < _ra_atc.length; i ++) {
-				_ra_atc[i].addEventListener("mouseover", function() {
-					if (typeof _ra_globals_productId === 'undefined') return;
-					_ra.mouseOverAddToCart(_ra_globals_productId);
-				});
-			}
-		}
-
 		// RA::likeFacebook
 		if (typeof FB !== "undefined" && typeof _ra_globals_productId !== 'undefined') {
 			FB.Event.subscribe("edge.create", function () {

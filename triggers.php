@@ -197,64 +197,6 @@ _ra.addToCart(<?php echo $product['id']; ?>, 1, false);
 					print_r($e->getRequest());
 					print_r($e->getResponse());
 				}
-			} else if ($_GET['t'] == 'mouseOverPrice') {
-
-				$productHandle = $_GET['h'];
-				$variants = $_GET['v'];
-
-				if ($productHandle == '') {
-					echo 'false';
-					return false;
-				}
-
-				$variants = json_decode(urldecode($variants));
-
-				try
-				{
-					$product = $shopify('GET /admin/products.json?handle='.$productHandle);
-
-					if (count($product) > 0) {
-						$product = $product[0];
-
-						$productPrice = ($product['variants'][0]['compare_at_price'] == '' ? $product['variants'][0]['price'] : $product['variants'][0]['compare_at_price']);
-						$productPromo = ($product['variants'][0]['compare_at_price'] == '' ? 0 : $product['variants'][0]['price']);
-
-						foreach ($product['variants'] as $variant) {
-							if (($variant['option1'] == '' || (isset($variants->option1) && $variant['option1'] == $variants->option1))
-								&& ($variant['option2'] == '' || (isset($variants->option2) && $variant['option2'] == $variants->option2))
-								&& ($variant['option3'] == '' || (isset($variants->option3) && $variant['option3'] == $variants->option3)) ) {
-
-								$productPrice = ($variant['compare_at_price'] == '' ? $variant['price'] : $variant['compare_at_price']);
-								$productPromo = ($variant['compare_at_price'] == '' ? 0 : $variant['price']);
-							}
-						}
-
-?>
-
-// mouseOverPrice
-_ra.mouseOverPrice(<?php echo $product['id']; ?>, {
-	"price": "<?php echo $productPrice; ?>",
-	"promo": "<?php echo $productPromo; ?>"
-});
-
-<?php
-					}
-
-				}
-				catch (shopify\ApiException $e)
-				{
-					# HTTP status code was >= 400 or response contained the key 'errors'
-					echo $e;
-					print_r($e->getRequest());
-					print_r($e->getResponse());
-				}
-				catch (shopify\CurlException $e)
-				{
-					# cURL error
-					echo $e;
-					print_r($e->getRequest());
-					print_r($e->getResponse());
-				}
-			}
+			} 
 		}
 	}
