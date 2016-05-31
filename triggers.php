@@ -56,9 +56,10 @@
 						if (count($product['variants'])) {
 							$productInventoryStock = array();
 							foreach ($product['variants'] as $variant) {
-								$entry = implode('-', explode(' / ', $variant['title']));
+								$entry = implode('-', explode('/', str_replace(' ', '', $variant['title'])));
 								$productInventoryStock[] = $entry.': '.($variant['inventory_quantity'] > 0 ? 'true' : 'false');
 							}
+							$productInventoryVariations = 'true';
 							$productInventoryStock = '{'.implode(', ', $productInventoryStock).'}';
 						} else {
 							$productInventoryStock = 'true';
