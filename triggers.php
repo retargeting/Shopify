@@ -36,7 +36,13 @@
 						$productImage = '';
 						if (array_key_exists('image', $product)) $productImage = $product['image']['src'];
 
-						$category = 'false';
+						// $category = 'false';
+						$category = '{
+							"id": 1,
+							"name": "Root",
+							"parent": false,
+							"breadcrumb": []
+						}';
 						if ($categoryHandle != '') {
 							$category = $shopify('GET /admin/custom_collections.json?handle='.$categoryHandle);
 							if (count($category) == 0) $category = $shopify('GET /admin/smart_collections.json?handle='.$categoryHandle);
@@ -71,12 +77,11 @@ var _ra_globals_productId = "<?php echo $product['id']; ?>";
 var _ra = _ra || {};
 _ra.sendProductInfo = {
 	"id": <?php echo $product['id']; ?>,
-	"name": "<?php echo $product['title']; ?>",
+	"name": "<?php echo htmlspecialchars($product['title']); ?>",
 	"url": window.location.href,
 	"img": "<?php echo $productImage; ?>", 
 	"price": "<?php echo ($product['variants'][0]['compare_at_price'] == '' ? $product['variants'][0]['price'] : $product['variants'][0]['compare_at_price']); ?>",
 	"promo": "<?php echo ($product['variants'][0]['compare_at_price'] == '' ? 0 : $product['variants'][0]['price']); ?>",
-	"stock": <?php echo ($product['variants'][0]['inventory_quantity'] <= 0 ? 0 : 1); ?>,
 	"brand": false,
 	"category": [<?php echo $category; ?>],
 	"inventory": {
