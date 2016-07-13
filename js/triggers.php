@@ -4,7 +4,7 @@
 	require __DIR__.'/../db.php';
 
 	if (isset($_GET['shop']) && $shop = verifyShopStatus($conn, $_GET['shop'])) {
-		$shop = $_GET['shop'];
+		$shopIdentifier = $_GET['shop'];
 		$qs = array(
 			"add_to_cart" => ($shop['qs_add_to_cart'] != '' ? $shop['qs_add_to_cart'] : 'form[action="/cart/add"] [type="submit"]'),
 			"variation" => ($shop['qs_variation'] != '' ? $shop['qs_variation'] : '[data-option*="option"]'),
@@ -214,7 +214,7 @@ function _ra_getTriggers(s, h, hc, v) {
 	var _ra_js = document.createElement("script");
 	_ra_js.type ="text/javascript";
 	_ra_js.async = true;
-	_ra_js.src = "https://retargeting.biz/shopify/triggers.php?shop=<?php echo $shop;?>&t="+s+"&h="+h+"&hc="+hc+"&v="+encodeURI(JSON.stringify(v));
+	_ra_js.src = "https://retargeting.biz/shopify/triggers.php?shop=<?php echo $shopIdentifier;?>&t="+s+"&h="+h+"&hc="+hc+"&v="+encodeURI(JSON.stringify(v));
 	var s = document.getElementsByTagName("script")[0];
 	document.getElementsByTagName("head")[0].appendChild(_ra_js);
 }
