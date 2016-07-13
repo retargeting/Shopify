@@ -23,6 +23,7 @@
 		$qs['help_pages'] = (count($qsHelpPages) > 0 ? implode(' || ', $qsHelpPages) : 'false');
 ?>
 /* All Pages Triggers */
+/* <?php var_dump($qs)?> */
 
 var _ra_temp = null;
 
