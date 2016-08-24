@@ -9,7 +9,6 @@
 	require __DIR__.'/conf.php';
 
 	
-	//if (isset($_SESSION['oauth_token']) && isset($_SESSION['shop'])) {
 	if (isset($_GET['shop']) && $shop = verifyShopStatus($conn, $_GET['shop'])) {
 
 		$shopify = shopify\client($shop['shop'], SHOPIFY_APP_API_KEY, $shop['token']);
@@ -19,7 +18,7 @@
 			if ($_GET['t'] == 'sendProduct') {
 
 				$productHandle = $_GET['h'];
-				$categoryHandle = $_GET['ch'];
+				$categoryHandle = $_GET['hc'];
 
 				if ($productHandle == '') {
 					echo 'false';
