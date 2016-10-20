@@ -57,18 +57,19 @@
 							}
 						}
 						
-						$productInventoryVariations = 'false';
-						if (count($product['variants'])) {
-							$productInventoryStock = array();
-							foreach ($product['variants'] as $variant) {
-								$entry = implode('-', explode('/', str_replace(' ', '', str_replace('"', '', $variant['title']))));
-								$productInventoryStock[] = '"'.$entry.'": '.($variant['inventory_quantity'] > 0 ? 'true' : 'false');
-							}
-							$productInventoryVariations = 'true';
-							$productInventoryStock = '{'.implode(', ', $productInventoryStock).'}';
-						} else {
-							$productInventoryStock = 'true';
-						}
+						$productInventoryVariations = false;
+						$productInventoryStock = true;
+						// if (count($product['variants'])) {
+						// 	$productInventoryStock = array();
+						// 	foreach ($product['variants'] as $variant) {
+						// 		$entry = implode('-', explode('/', str_replace(' ', '', str_replace('"', '', $variant['title']))));
+						// 		$productInventoryStock[] = '"'.$entry.'": '.($variant['inventory_quantity'] > 0 ? 'true' : 'false');
+						// 	}
+						// 	$productInventoryVariations = true;
+						// 	$productInventoryStock = '{'.implode(', ', $productInventoryStock).'}';
+						// } else {
+						// 	$productInventoryStock = 'true';
+						// }
 ?>
 
 var _ra_globals_productId = "<?php echo $product['id']; ?>";
@@ -84,7 +85,7 @@ _ra.sendProductInfo = {
 	"brand": false,
 	"category": [<?php echo $category; ?>],
 	"inventory": {
-		"variations": <?php echo $productInventoryVariations; ?>,
+		"variations": false,
 		"stock": <?php echo $productInventoryStock; ?>
 	}
 }

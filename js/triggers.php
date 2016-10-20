@@ -89,11 +89,7 @@ if (window.location.pathname.indexOf('/products/') !== -1) {
 							"value": _ra_value
 						};
 					}
-					_ra.addToCart(_ra_globals_productId, 1, {
-						"code": _ra_vcode.join('-'),
-						"stock": true,
-						"details": _ra_vdetails
-					});
+					_ra.addToCart(_ra_globals_productId, 1, false);
 				});
 			}
 		}
